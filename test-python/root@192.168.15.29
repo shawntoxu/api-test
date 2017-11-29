@@ -1,0 +1,33 @@
+#coding=utf8
+
+import paramiko
+import threading
+
+def ssh2(ip,username,password,cmd):
+    try:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+        ssh.connect(ip, 22, username, password, timeout=5)
+        for m in cmd:
+            stdin,stdout,stderr = ssh.exec_command(cmd)
+            out = stdout.readlines()
+            for o in out:
+                print o
+                print '%s\tOK\n'%(ip)
+        ssh.close()
+    except:
+        print "error",ip
+    
+    if __name__ == '__main__':
+        cmd = ['ls /']
+        username='root'
+        password='wangxu'
+        thread = []
+        print "begin"
+        
+        ssh2('192.168.10.33',username,password,cmd)
+        
+        #for i in rang(1,254):
+         #   ip = '192.168.10.'+str(i)
+         #   a = threading.Thread(target=ssh2,args=(ip,username,password,cmd))
+         #   a.start()
