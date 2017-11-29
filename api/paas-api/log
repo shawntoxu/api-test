@@ -1,0 +1,23 @@
+[INFO] [2017-03-27 10:22:37,944] Starting new HTTP connection (1): 172.30.10.122
+[INFO] [2017-03-27 10:22:37,957] Started
+[INFO] [2017-03-27 10:22:37,964]  * Running on http://0.0.0.0:12306/ (Press CTRL+C to quit)
+[INFO] [2017-03-27 10:22:37,964]  * Restarting with stat
+[INFO] [2017-03-27 10:22:38,514] Starting new HTTP connection (1): 172.30.10.122
+[INFO] [2017-03-27 10:22:38,528] Started
+[WARNING] [2017-03-27 10:22:38,533]  * Debugger is active!
+[INFO] [2017-03-27 10:22:38,553]  * Debugger pin code: 717-646-471
+[INFO] [2017-03-27 10:22:52,688] Getting application <retargeting-02>
+[INFO] [2017-03-27 10:22:52,691] Starting new HTTP connection (1): 172.30.10.155
+[WARNING] [2017-03-27 10:22:52,693] <class 'keystoneclient.openstack.common.apiclient.exceptions.AuthorizationFailure'>
+[WARNING] [2017-03-27 10:22:52,693] Authorization Failed: Unable to establish connection to http://172.30.10.155:35357/v2.0/tokens
+[INFO] [2017-03-27 10:22:52,694] 172.30.80.6 - - [27/Mar/2017 10:22:52] "GET /api/v1/applications/retargeting-02?summary=y HTTP/1.1" 200 -
+[INFO] [2017-03-27 10:22:52,800] start image_checker
+[INFO] [2017-03-27 10:22:52,803] Getting application <retargeting-02>
+[INFO] [2017-03-27 10:22:52,804] Starting new HTTP connection (1): 172.30.10.122
+[INFO] [2017-03-27 10:22:52,823] Starting new HTTP connection (1): 172.30.10.155
+[WARNING] [2017-03-27 10:22:52,824] <class 'keystoneclient.openstack.common.apiclient.exceptions.AuthorizationFailure'>
+[WARNING] [2017-03-27 10:22:52,824] Authorization Failed: Unable to establish connection to http://172.30.10.155:35357/v2.0/tokens
+[INFO] [2017-03-27 10:22:52,825] 172.30.10.168 - - [27/Mar/2017 10:22:52] "GET /api/v1/applications/retargeting-02? HTTP/1.1" 200 -
+[INFO] [2017-03-27 10:22:52,873] 172.30.10.168 - - [27/Mar/2017 10:22:52] "POST /api/v1/image_checker HTTP/1.1" 200 -
+[INFO] [2017-03-27 10:22:52,894] start image_checker
+[INFO] [2017-03-27 10:22:52,895] 172.30.10.168 - - [27/Mar/2017 10:22:52] "POST /api/v1/image_checker HTTP/1.1" 200 -
