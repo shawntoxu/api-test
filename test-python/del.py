@@ -7,9 +7,9 @@ import re
 '''
 
 #log root dir
-ROOT_DIR='/dianyi/log'
+ROOT_DIR='/temp/log'
 
-# dir ip  eg. 10.10.1.1 -- /dianyi/log/xxxx/10.10.1.1
+# dir ip  eg. 10.10.1.1 -- /temp/log/xxxx/10.10.1.1
 ALL_IP_PATH={}
 
 def isIp(ip):
