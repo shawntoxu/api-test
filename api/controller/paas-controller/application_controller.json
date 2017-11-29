@@ -1,0 +1,5 @@
+{
+    "kind": "ApplicationController",
+    "memory_threshold": 95,
+    "name": "app_name"
+}

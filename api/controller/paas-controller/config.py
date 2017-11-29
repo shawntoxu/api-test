@@ -1,0 +1,9 @@
+PAAS_API_SERVER = 'http://172.30.80.23:12306'
+K8S_API_SERVER = 'http://172.30.80.23:8080'
+ETCD_SERVER = '172.30.80.23'
+ETCD_PORT = 4001
+APP_NAMES = ['']
+MEM_THRESHOLD = 96.0
+MAX_LOG_SIZE = 20
+MAX_LOG_COUNT = 7
+LOG_PATH = '/var/log/paas/paas-controller.log'
