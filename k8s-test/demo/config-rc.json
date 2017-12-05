@@ -1,0 +1,99 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "name": "config",
+    "namespace": "$NAMESPACE",
+    "labels": {
+      "name": "config",
+      "version": "$RC_VERSION_CONFIG",
+      "internalID": "111"
+    }
+  },
+  "spec": {
+    "replicas": $REPLICAS_CONFIG,
+    "selector": {
+      "name": "config",
+      "version": "$RC_VERSION_CONFIG",
+      "internalID": "111"
+    },
+    "template": {
+      "metadata": {
+        "namespace": "$NAMESPACE",
+        "labels": {
+          "name": "config",
+          "version": "$RC_VERSION_CONFIG",
+          "internalID": "111"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "host-log",
+            "hostPath": {"path": "/dianyi/log/config"}
+          }
+        ],
+        "containers": [
+          {
+            "name": "config",
+            "image": "$DOCKERHUB/config:$RC_VERSION_CONFIG",
+            "volumeMounts": [
+              {
+                "name": "host-log",
+                "mountPath": "/app/logs"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "memory": "$CONTAINER_MEMORY_CONFIG"
+              },
+              "requests": {
+                "memory": "$CONTAINER_MEMORY_REQ_CONFIG"
+              }
+            },
+            "env": [
+              {
+                "name": "ZK_ADDRESS",
+                "value": "$ZK_ADDRESS"
+              },
+              {
+                "name": "DB_DRIVER",
+                "value": "$DB_DRIVER"
+              },
+              {
+                "name": "DB_URL",
+                "value": "$DB_URL"
+              },
+              {
+                "name": "MYSQL_DB_USER",
+                "value": "$MYSQL_DB_USER"
+              },
+              {
+                "name": "MYSQL_DB_PW",
+                "value": "$MYSQL_DB_PW"
+              },
+              {
+                "name": "LC_ALL",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANG",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANGUAGE",
+                "value": "en_US:en"
+              }
+            ],
+            "ports": [
+            ],
+            "imagePullPolicy":"Always"
+          }
+        ],
+        "nodeSelector": {
+           "usergroup": "pmd"
+        }        
+      }
+    }
+  }
+}

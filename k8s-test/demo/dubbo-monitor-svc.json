@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "dubbo-monitor",
+    "labels": {
+      "name": "dubbo-monitor"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $DUBBO_MONITOR_PORT,
+        "targetPort": $DUBBO_MONITOR_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$DUBBO_MONITOR_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "dubbo-monitor"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "config",
+    "labels": {
+      "name": "config"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $CONFIG_PORT,
+        "targetPort": $CONFIG_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$CONFIG_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "config"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "ecnetwork-shop",
+    "namespace": "default",
+    "labels": {
+      "name": "ecnetwork-shop",
+      "version": "test",
+      "internalID": "111"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "name": "ecnetwork-shop",
+      "version": "test",
+      "internalID": "111"
+    },
+    "template": {
+      "metadata": {
+        "namespace": "default",
+        "labels": {
+          "name": "ecnetwork-shop",
+          "version": "test",
+          "internalID": "111"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "host-log",
+            "hostPath": {"path": "/dianyi/log/ecnetwork-shop"}
+          }
+        ],
+        "containers": [
+          {
+            "name": "ecnetwork-shop",
+            "image": "test/ec-network/ecnetwork-shop:test",
+            "volumeMounts": [
+              {
+                "name": "host-log",
+                "mountPath": "/app/logs"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "memory": "1Gi"
+              },
+              "requests": {
+                "memory": "512Mi"
+              }
+            },
+            "env": [
+              {
+                "name": "ZK_ADDRESS",
+                "value": "172.30.10.122:42185"
+              },
+              {
+                "name": "LC_ALL",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANG",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANGUAGE",
+                "value": "en_US:en"
+              }
+            ],
+            "ports": [
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

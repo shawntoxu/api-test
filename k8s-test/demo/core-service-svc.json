@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-core-service",
+    "labels": {
+      "name": "ecnetwork-core-service"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $CORE_SERVICE_PORT,
+        "targetPort": $CORE_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$CORE_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-core-service"
+    }
+  }
+}

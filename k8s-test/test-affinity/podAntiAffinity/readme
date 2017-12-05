@@ -1,0 +1,10 @@
+利用podAntiAffinity
+nginx 平均分配到3个节点
+imatchExpressions 中写 nginx 的 svc 的 label 匹配，不是pod自身的 label 匹配 ? 
+
+只要有service 的情况就可以平均分配？？ 没有service 就不能平均分配 ??? 
+
+
+
+
+

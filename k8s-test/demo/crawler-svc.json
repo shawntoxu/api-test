@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-crawler",
+    "labels": {
+      "name": "ecnetwork-crawler"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $CRAWLER_SERVICE_PORT,
+        "targetPort": $CRAWLER_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$CRAWLER_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-crawler"
+    }
+  }
+}

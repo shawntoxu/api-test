@@ -1,0 +1,101 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "name": "ecnetwork-core-service",
+    "namespace": "$NAMESPACE",
+    "labels": {
+      "name": "ecnetwork-core-service",
+      "version": "$RC_VERSION_CORE_SERVICE",
+      "internalID": "111"
+    }
+  },
+  "spec": {
+    "replicas": $REPLICAS_CORE_SERVICE,
+    "selector": {
+      "name": "ecnetwork-core-service",
+      "version": "$RC_VERSION_CORE_SERVICE",
+      "internalID": "111"
+    },
+    "template": {
+      "metadata": {
+        "namespace": "$NAMESPACE",
+        "labels": {
+          "name": "ecnetwork-core-service",
+          "version": "$RC_VERSION_CORE_SERVICE",
+          "internalID": "111"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "host-log",
+            "hostPath": {"path": "/dianyi/log/ecnetwork-core-service"}
+          }
+        ],
+        "containers": [
+          {
+            "name": "ecnetwork-core-service",
+            "image": "$DOCKERHUB/ecnetwork-core-service:$RC_VERSION_CORE_SERVICE",
+            "volumeMounts": [
+              {
+                "name": "host-log",
+                "mountPath": "/app/logs"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "memory": "$CONTAINER_MEMORY_CORE_SERVICE"
+              },
+              "requests": {
+                "memory": "$CONTAINER_MEMORY_REQ_CORE_SERVICE"
+              }
+            },
+            "env": [
+              {
+                "name": "ZK_ADDRESS",
+                "value": "$ZK_ADDRESS"
+              },
+              {
+                "name": "LC_ALL",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANG",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANGUAGE",
+                "value": "en_US:en"
+              }
+            ],
+            "readinessProbe": {
+                "initialDelaySeconds": 10,
+                 "timeoutSeconds": 1,
+                 "exec": {
+      "command": [ 
+                          "bash", "-c", "/app/run/process/ecnetwork-core-service/bin/readinessProbe.sh"
+                     ]
+                 }  
+            },            
+            "lifecycle": {
+                "preStop": {
+                    "exec": {
+                        "command": [
+                            "/app/run/process/ecnetwork-core-service/bin/stop.sh"
+                        ]   
+                    }   
+                 }   
+            },
+            "ports": [
+            ],
+            "imagePullPolicy":"Always"
+          }
+        ],
+        "nodeSelector": {
+           "usergroup": "pmd"
+        }        
+      }
+    }
+  }
+}

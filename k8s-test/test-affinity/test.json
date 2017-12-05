@@ -1,0 +1,86 @@
+{
+	"kind": "ReplicationController",
+	"apiVersion": "v1",
+	"metadata": {
+		"namespace": "ddddddddddddd",
+		"name": "testrc",
+		"labels": {
+			"name": "testrc",
+			"version": "1.0",
+			"internalID": "111"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"selector": {
+			"name": "testrc",
+			"version": "1.0",
+			"internalID": "111"
+		},
+		"template": {
+			"metadata": {
+				"namespace": "ddddddddddddd",
+				"labels": {
+					"name": "testrc",
+					"version": "1.0",
+					"internalID": "111"
+				}
+			},
+			"spec": {
+				"volumes": [{
+					"name": "host-log",
+					"hostPath": {
+						"path": "/dianyi/log/testrc"
+					}
+				}],
+				"containers": [{
+					"name": "testrc",
+					"image": "nginx:1.7.9",
+					"volumeMounts": [{
+						"name": "host-log",
+						"mountPath": "/app/logs"
+					}],
+					"resources": {
+						"limits": {
+							"memory": "1Gi"
+						},
+						"requests": {
+							"memory": "512Mi"
+						}
+					},
+					"env": [{
+						"name": "LC_ALL",
+						"value": "en_US.UTF-8"
+					},
+					{
+						"name": "LANG",
+						"value": "en_US.UTF-8"
+					},
+					{
+						"name": "LANGUAGE",
+						"value": "en_US:en"
+					},
+					{
+						"name": "a",
+						"value": "b"
+					}],
+					"readinessProbe": {
+						"initialDelaySeconds": 3,
+						"exec": {
+							"command": ["bash",
+							"-c",
+							"/dianyi/app/ypp/readiness.sh"]
+						}
+					},
+					"lifecycle": {
+						"preStop": {
+							"exec": {
+								"command": ["/dianyi/app/ypp/prestop.sh"]
+							}
+						}
+					}
+				}]
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-db-service",
+    "labels": {
+      "name": "ecnetwork-db-service"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $DB_SERVICE_PORT,
+        "targetPort": $DB_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$DB_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-db-service"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-web",
+    "labels": {
+      "name": "ecnetwork-web"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $WEB_SERVICE_PORT,
+        "targetPort": $WEB_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$WEB_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-web"
+    }
+  }
+}

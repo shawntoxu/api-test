@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-scheduler",
+    "labels": {
+      "name": "ecnetwork-scheduler"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $SCHEDULER_SERVICE_PORT,
+        "targetPort": $SCHEDULER_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$SCHEDULER_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-scheduler"
+    }
+  }
+}

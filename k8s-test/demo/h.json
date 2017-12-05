@@ -1,0 +1,95 @@
+{
+  "heat_template_version": "2013-05-23",
+  "description": "Heat template to deploy kubernetes replication controllers and services to an existing host",
+  "resources": {
+    "ecnetwork-db-service-rc": {
+      "type": "GoogleInc::Kubernetes::ReplicationController",
+      "properties": {
+        "namespace": "$NAMESPACE",
+        "apiversion": "$APIVERSION",
+        "definition_location": "$PATH/db-service-rc.json",
+        "kubernetes_endpoint": "$IPADDWITHPORT",
+        "token": "$TOKEN",
+        "rolling_updates": {
+          "pause_time": $UPD_PAUSE_DB_SERVICE,
+          "batch_percentage": $UPD_PERCENTAGE_DB_SERVICE
+        }
+      }
+    },
+    "ecnetwork-db-service-svc": {
+      "type": "GoogleInc::Kubernetes::Service",
+    "depends_on": [
+        "ecnetwork-db-service-rc"
+        ],
+      "properties": {
+        "namespace": "$NAMESPACE",
+        "apiversion": "$APIVERSION",
+        "definition_location": "$PATH/db-service-svc.json",
+        "kubernetes_endpoint": "$IPADDWITHPORT",
+        "token": "$TOKEN"
+     }
+    },
+      "ecnetwork-core-service-rc": {
+        "depends_on": [
+        "ecnetwork-db-service-svc"
+        ],
+      "type": "GoogleInc::Kubernetes::ReplicationController",
+      "properties": {
+        "namespace": "$NAMESPACE",
+        "apiversion": "$APIVERSION",
+        "definition_location": "$PATH/core-service-rc.json",
+        "kubernetes_endpoint": "$IPADDWITHPORT",
+        "token": "$TOKEN",
+        "rolling_updates": {
+          "pause_time": $UPD_PAUSE_CORE_SERVICE,
+          "batch_percentage": $UPD_PERCENTAGE_CORE_SERVICE
+        }
+      }
+    },
+    "ecnetwork-core-service-svc": {
+      "type": "GoogleInc::Kubernetes::Service",
+    "depends_on": [
+        "ecnetwork-core-service-rc"
+        ],
+      "properties": {
+        "namespace": "$NAMESPACE",
+        "apiversion": "$APIVERSION",
+        "definition_location": "$PATH/core-service-svc.json",
+        "kubernetes_endpoint": "$IPADDWITHPORT",
+        "token": "$TOKEN"
+     }
+    },
+    "ecnetwork-mq-service-rc": {
+        "depends_on": [
+        "ecnetwork-core-service-svc"
+        ],
+      "type": "GoogleInc::Kubernetes::ReplicationController",
+      "properties": {
+        "namespace": "$NAMESPACE",
+        "apiversion": "$APIVERSION",
+        "definition_location": "$PATH/mq-service-rc.json",
+        "kubernetes_endpoint": "$IPADDWITHPORT",
+        "token": "$TOKEN",
+        "rolling_updates": {
+          "pause_time": $UPD_PAUSE_MQ_SERVICE,
+          "batch_percentage": $UPD_PERCENTAGE_MQ_SERVICE
+        }
+      }
+    },
+    "ecnetwork-mq-service-svc": {
+      "type": "GoogleInc::Kubernetes::Service",
+    "depends_on": [
+        "ecnetwork-mq-service-rc"
+        ],
+      "properties": {
+        "namespace": "$NAMESPACE",
+        "apiversion": "$APIVERSION",
+        "definition_location": "$PATH/mq-service-svc.json",
+        "kubernetes_endpoint": "$IPADDWITHPORT",
+        "token": "$TOKEN"
+     }
+    }
+
+
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "name": "ecnetwork-web",
+    "namespace": "$NAMESPACE",
+    "labels": {
+      "name": "ecnetwork-web",
+      "version": "$RC_VERSION_WEB_SERVICE",
+      "internalID": "111"
+    }
+  },
+  "spec": {
+    "replicas": $REPLICAS_WEB_SERVICE,
+    "selector": {
+      "name": "ecnetwork-web",
+      "version": "$RC_VERSION_WEB_SERVICE",
+      "internalID": "111"
+    },
+    "template": {
+      "metadata": {
+        "namespace": "$NAMESPACE",
+        "labels": {
+          "name": "ecnetwork-web",
+          "version": "$RC_VERSION_WEB_SERVICE",
+          "internalID": "111"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "host-log",
+            "hostPath": {"path": "/dianyi/log/ecnetwork-web"}
+          }
+        ],
+        "containers": [
+          {
+            "name": "ecnetwork-web",
+            "image": "$DOCKERHUB/ecnetwork-web:$RC_VERSION_WEB_SERVICE",
+            "volumeMounts": [
+              {
+                "name": "host-log",
+                "mountPath": "/app/logs"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "memory": "$CONTAINER_MEMORY_WEB_SERVICE"
+              },
+              "requests": {
+                "memory": "$CONTAINER_MEMORY_REQ_WEB_SERVICE"
+              }
+            },
+            "env": [
+              {
+                "name": "ZK_ADDRESS",
+                "value": "$ZK_ADDRESS"
+              },
+              {
+                "name": "DOMAIN_NAME",
+                "value": "$DOMAIN_NAME"
+              },
+              {
+                "name": "DEPLOY",
+                "value": "$DEPLOY"
+              },
+              {
+                "name": "CONTROLLER_ADD",
+                "value": "$CONTROLLER_ADD"
+              },
+              {
+                "name": "LC_ALL",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANG",
+                "value": "en_US.UTF-8"
+              },
+              {
+                "name": "LANGUAGE",
+                "value": "en_US:en"
+              }
+            ],
+            "readinessProbe": {
+                "initialDelaySeconds": 5,
+                 "timeoutSeconds": 1,
+                 "httpGet": {
+                    "path": "/",
+                    "port": 80
+                 }  
+            },            
+            "lifecycle": {
+                "preStop": {
+                    "exec": {
+                        "command": [
+                            "/etc/init.d/nginx stop"
+                        ]   
+                    }   
+                 }   
+            },
+            "ports": [
+            ],
+            "imagePullPolicy":"Always"
+          }
+        ],
+        "nodeSelector": {
+           "usergroup": "pmd"
+        }        
+      }
+    }
+  }
+}

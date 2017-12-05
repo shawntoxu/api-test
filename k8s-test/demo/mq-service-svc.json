@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-mq-service",
+    "labels": {
+      "name": "ecnetwork-mq-service"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $MQ_SERVICE_PORT,
+        "targetPort": $MQ_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$MQ_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-mq-service"
+    }
+  }
+}

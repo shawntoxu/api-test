@@ -1,0 +1,7 @@
+
+https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
+
+replicated MySQL topology with a StatefulSet controller.
+Send MySQL client traffic.
+Observe resistance to downtime.
+Scale the StatefulSet up and down

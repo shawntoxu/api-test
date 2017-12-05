@@ -1,0 +1,1 @@
+web-server 跟每个redis 通信，所以尽可能的和 redis在一个节点上

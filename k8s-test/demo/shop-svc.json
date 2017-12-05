@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-shop",
+    "labels": {
+      "name": "ecnetwork-shop"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $SHOP_SERVICE_PORT,
+        "targetPort": $SHOP_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$SHOP_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-shop"
+    }
+  }
+}

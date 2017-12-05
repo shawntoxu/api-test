@@ -1,0 +1,26 @@
+{
+  "kind": "Service",
+  "apiVersion": "$APIVERSION",
+  "metadata": {
+    "namespace": "$NAMESPACE",
+    "name": "ecnetwork-controller",
+    "labels": {
+      "name": "ecnetwork-controller"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": $CONTROLLER_SERVICE_PORT,
+        "targetPort": $CONTROLLER_SERVICE_CONTAINER_PORT,
+        "protocol": "TCP"
+      }
+    ],
+    "publicIPs": [
+      "$CONTROLLER_SERVICE_PUBLICIPS"
+    ],
+    "selector": {
+      "name": "ecnetwork-controller"
+    }
+  }
+}
